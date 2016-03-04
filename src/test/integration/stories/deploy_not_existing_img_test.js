@@ -171,5 +171,6 @@ describe('Deploy not existing image story', () => {
     cardMenuButton.click();
     replicationControllersPage.deleteAppButton.click().then(
         () => { deleteDialog.deleteAppButton.click(); });
+    zeroStatePage.waitUntilZeroStatePageLoaded();
   });
 });

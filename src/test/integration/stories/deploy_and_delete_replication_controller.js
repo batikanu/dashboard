@@ -15,6 +15,7 @@
 import DeleteReplicationControllerDialogObject from '../replicationcontrollerdetail/deletereplicationcontroller_po';
 import DeployPageObject from '../deploy/deploy_po';
 import ReplicationControllersPageObject from '../replicationcontrollerslist/replicationcontrollers_po';
+import ZeroStatePageObject from '../zerostate/zerostate_po';
 
 // Test assumes, that there are no replication controllers in the cluster at the beginning.
 describe('Deploy and delete replication controller user story test', () => {
@@ -37,6 +38,9 @@ describe('Deploy and delete replication controller user story test', () => {
   /** @type {string} */
   let applicationCardXPath = `//chrome/md-content//span[text() = '${applicationName}']`;
 
+  /** @type {!ZeroStatePageObject} */
+  let zeroStatePage;
+
   /**
    * Generates random 13 characters long string.
    * @return {string}
@@ -47,6 +51,7 @@ describe('Deploy and delete replication controller user story test', () => {
     deployPage = new DeployPageObject();
     deleteReplicationControllerDialog = new DeleteReplicationControllerDialogObject();
     replicationControllersPage = new ReplicationControllersPageObject();
+    zeroStatePage = new ZeroStatePageObject();
   });
 
   it('should go to deploy page', () => {
@@ -85,6 +90,7 @@ describe('Deploy and delete replication controller user story test', () => {
     deleteReplicationControllerDialog.deleteAppButton.click();
 
     expect(element(by.xpath(applicationCardXPath)).isPresent()).toBeFalsy();
+    zeroStatePage.waitUntilZeroStatePageLoaded();
   });
 
 });
