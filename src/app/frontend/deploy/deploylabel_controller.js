@@ -78,6 +78,10 @@ export default class DeployLabelController {
     if (this.isFilled_(lastLabel)) {
       this.addNewLabel_();
     }
+
+    if(this.isEmpty_(this.label) && this.labels.length > 1){
+      this.deleteLabel();
+    }
   }
 
   /**
@@ -130,5 +134,15 @@ export default class DeployLabelController {
    * @return {boolean}
    * @private
    */
-  isFilled_(label) { return label.key.length !== 0 && label.value().length !== 0; }
+  isFilled_(label) {
+    return !!label.key && !!label.value();
+  }
+
+  /**
+   * Returns true if label key and value are not empty, false otherwise.
+   * @param {!DeployLabel} label
+   * @return {boolean}
+   * @private
+   */
+  isEmpty_(label) { return !label.key && !label.value(); }
 }

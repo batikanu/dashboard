@@ -33,32 +33,48 @@ describe('PortMappingsController controller', () => {
 
   it('should add new mappings when needed', () => {
     expect(ctrl.portMappings.length).toBe(1);
-
-    ctrl.addProtocolIfNeeed();
+    let index = 0;
+    ctrl.addOrRemoveProtocolIfNeeded(index);
     expect(ctrl.portMappings.length).toBe(1);
 
-    ctrl.portMappings[0].port = 80;
-    ctrl.portMappings[0].targetPort = 8080;
+    ctrl.portMappings[index].port = 80;
+    ctrl.portMappings[index].targetPort = 8080;
 
-    ctrl.addProtocolIfNeeed();
+    ctrl.addOrRemoveProtocolIfNeeded(index);
     expect(ctrl.portMappings.length).toBe(2);
   });
 
   it('should determine removability', () => {
-    expect(ctrl.isRemovable(0)).toBe(false);
-    ctrl.portMappings[0].port = 80;
-    ctrl.portMappings[0].targetPort = 8080;
-    ctrl.addProtocolIfNeeed();
-    expect(ctrl.isRemovable(0)).toBe(true);
+    let index = 0;
+    expect(ctrl.isRemovable(index)).toBe(false);
+    ctrl.portMappings[index].port = 80;
+    ctrl.portMappings[index].targetPort = 8080;
+    ctrl.addOrRemoveProtocolIfNeeded(index);
+    expect(ctrl.isRemovable(index)).toBe(true);
   });
 
   it('should remove port mappings', () => {
-    ctrl.portMappings[0].port = 80;
-    ctrl.portMappings[0].targetPort = 8080;
-    ctrl.addProtocolIfNeeed();
+    let index = 0;
+    ctrl.portMappings[index].port = 80;
+    ctrl.portMappings[index].targetPort = 8080;
+    ctrl.addOrRemoveProtocolIfNeeded(index);
     expect(ctrl.portMappings.length).toBe(2);
-    ctrl.remove(0);
+    ctrl.remove(index);
     expect(ctrl.portMappings.length).toBe(1);
-    expect(ctrl.portMappings[0].port).toBeNull();
+    expect(ctrl.portMappings[index].port).toBeNull();
+  });
+
+  it('should remove port mappings if they are empty', () => {
+    let index = 0;
+    ctrl.portMappings[index].port = 80;
+    ctrl.portMappings[index].targetPort = 8080;
+    ctrl.addOrRemoveProtocolIfNeeded(index);
+    // first one port mapping should be added
+    expect(ctrl.portMappings.length).toBe(2);
+    ctrl.portMappings[index].port = '';
+    ctrl.portMappings[index].targetPort = '';
+    // then it should be removed
+    ctrl.addOrRemoveProtocolIfNeeded(index);
+    expect(ctrl.portMappings.length).toBe(1);
   });
 });

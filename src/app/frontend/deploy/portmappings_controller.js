@@ -49,12 +49,18 @@ export default class PortMappingsController {
   }
 
   /**
+   * @param {!number} index
    * @export
    */
-  addProtocolIfNeeed() {
+  addOrRemoveProtocolIfNeeded(index) {
     let lastPortMapping = this.portMappings[this.portMappings.length - 1];
     if (this.isPortMappingFilled_(lastPortMapping)) {
       this.portMappings.push(this.newEmptyPortMapping_(this.protocols[0]));
+    }
+
+    let currentPortMapping = this.portMappings[index];
+    if(this.isPortMappingEmpty_(currentPortMapping) && this.portMappings.length > 1){
+      this.remove(index);
     }
   }
 
@@ -66,6 +72,7 @@ export default class PortMappingsController {
   isRemovable(index) { return index !== (this.portMappings.length - 1); }
 
   /**
+   * Removes the entry for the given index from the array
    * @param {number} index
    * @export
    */
@@ -78,4 +85,12 @@ export default class PortMappingsController {
    * @private
    */
   isPortMappingFilled_(portMapping) { return !!portMapping.port && !!portMapping.targetPort; }
+
+  /**
+   * Returns true when the given port mapping is completely empty
+   * @param {!backendApi.PortMapping} portMapping
+   * @return {boolean}
+   * @private
+   */
+  isPortMappingEmpty_(portMapping) { return !portMapping.port && !portMapping.targetPort; }
 }
