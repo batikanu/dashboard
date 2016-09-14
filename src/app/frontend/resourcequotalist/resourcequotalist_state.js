@@ -12,16 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * @final
- */
-export class PersistentVolumeDetailController {
-  /**
-   * @param {!backendApi.PersistentVolumeDetail} persistentVolumeDetail
-   * @ngInject
-   */
-  constructor(persistentVolumeDetail) {
-    /** @export {!backendApi.PersistentVolumeDetail} */
-    this.persistentVolumeDetail = persistentVolumeDetail;
-  }
-}
+/** Name of the state. Can be used in, e.g., $state.go method. */
+export const stateName = 'resourcequota';
+
+/** Absolute URL of the state. */
+export const stateUrl = '/resourcequota';

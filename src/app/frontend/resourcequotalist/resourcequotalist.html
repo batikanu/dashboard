@@ -14,15 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<kd-namespace-info namespace="::ctrl.namespaceDetail"></kd-namespace-info>
-<kd-content-card ng-if="ctrl.namespaceDetail.resourceQuotaList.items">
-    <kd-title>{{::ctrl.i18n.MSG_NAMESPACE_DETAIL_RESOURCE_QUOTA_LIST_TITLE}}</kd-title>
+<kd-content-card ng-if="!$ctrl.shouldShowZeroState()">
     <kd-content>
-        <kd-resource-quota-card-list resource-quota-list="::ctrl.namespaceDetail.resourceQuotaList"
-                                     resource-quota-list-resource="::ctrl.resourceQuotaListResource">
+        <kd-resource-quota-card-list resource-quota-list="$ctrl.resourceQuotaList"
+                                 resource-quota-list-resource="$ctrl.resourceQuotaListResource">
         </kd-resource-quota-card-list>
     </kd-content>
 </kd-content-card>
-<kd-event-card-list event-list="::ctrl.namespaceDetail.eventList"
-                    event-list-resource="::ctrl.eventListResource">
-</kd-event-card-list>
+<kd-zero-state ng-if="$ctrl.shouldShowZeroState()"></kd-zero-state>

@@ -27,6 +27,7 @@ import {stateName as petSetState} from 'petsetlist/petsetlist_state';
 import {stateName as podState} from 'podlist/podlist_state';
 import {stateName as replicaSetState} from 'replicasetlist/replicasetlist_state';
 import {stateName as replicationControllerState} from 'replicationcontrollerlist/replicationcontrollerlist_state';
+import {stateName as resourceQuotaState} from 'resourcequotalist/resourcequotalist_state';
 import {stateName as secretState} from 'secretlist/list_state';
 import {stateName as serviceState} from 'servicelist/servicelist_state';
 import {stateName as servicesanddiscoveryState} from 'servicesanddiscovery/state';
@@ -64,6 +65,7 @@ export class NavController {
       'job': jobState,
       'service': serviceState,
       'persistentVolumeClaim': persistentVolumeClaimState,
+      'resourceQuota': resourceQuotaState,
       'secret': secretState,
       'configMap': configMapState,
       'ingress': ingressState,
@@ -113,6 +115,8 @@ const i18n = {
   MSG_NAV_MENU_REPLICA_SETS: goog.getMsg('Replica Sets'),
   /** @export @desc Replication Controllers menu item in the nav. */
   MSG_NAV_MENU_REPLICATION_CONTROLLERS: goog.getMsg('Replication Controllers'),
+  /** @export @desc Resource Quotas menu item in the nav. */
+  MSG_NAV_MENU_RESOURCE_QUOTAS: goog.getMsg('Resource Quotas'),
   /** @export @desc Daemon Sets menu item in the nav. */
   MSG_NAV_MENU_DAEMON_SETS: goog.getMsg('Daemon Sets'),
   /** @export @desc Pet Sets menu item in the nav. */

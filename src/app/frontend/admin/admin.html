@@ -52,5 +52,18 @@ limitations under the License.
       </kd-persistent-volume-card-list>
     </kd-content>
   </kd-content-card>
+  <kd-content-card ng-if="$ctrl.admin.resourceQuotaList.items.length">
+    <kd-title>
+      <a ui-sref="resourcequota">
+        {{::$ctrl.i18n.MSG_ADMIN_RESOURCE_QUOTAS_LABEL}}
+      </a>
+    </kd-title>
+    <kd-content>
+      <kd-resource-quota-card-list resource-quota-list="$ctrl.admin.resourceQuotaList"
+                                      with-statuses="true"
+                                      resource-quota-list-resource="$ctrl.kdResourceQuotaListResource">
+      </kd-resource-quota-card-list>
+    </kd-content>
+  </kd-content-card>
 </div>
 <kd-zero-state ng-if="$ctrl.shouldShowZeroState()"></kd-zero-state>

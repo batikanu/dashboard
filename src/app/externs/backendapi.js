@@ -145,6 +145,7 @@ backendApi.Workloads;
  *   nodeList: !backendApi.NodeList,
  *   namespaceList: !backendApi.NamespaceList,
  *   persistentVolumeList: !backendApi.PersistentVolumeList,
+ *   resourceQuotaList: !backendApi.ResourceQuotaList,
  * }}
  */
 backendApi.Admin;
@@ -382,6 +383,40 @@ backendApi.PersistentVolumeDetail;
  * }}
  */
 backendApi.PersistentVolumeSource;
+
+/**
+ * @typedef {{
+ *   objectMeta: !backendApi.ObjectMeta,
+ *   typeMeta: !backendApi.TypeMeta,
+ * }}
+ */
+backendApi.ResourceQuota;
+
+/**
+ * @typedef {{
+ *   objectMeta: !backendApi.ObjectMeta,
+ *   typeMeta: !backendApi.TypeMeta,
+ *   scopes: Array<string>,
+ *   statusList: Object<string, !backendApi.ResourceQuotaStatus>,
+ * }}
+ */
+backendApi.ResourceQuotaDetail;
+
+/**
+ * @typedef {{
+ *   used: string,
+ *   hard: string,
+ * }}
+ */
+backendApi.ResourceQuotaStatus;
+
+/**
+ * @typedef {{
+ *   items: !Array<!backendApi.ResourceQuota>,
+ *   listMeta: !backendApi.ListMeta
+ * }}
+ */
+backendApi.ResourceQuotaList;
 
 /**
  * @typedef {{
@@ -911,7 +946,8 @@ backendApi.NamespaceList;
  *   objectMeta: !backendApi.ObjectMeta,
  *   typeMeta: !backendApi.TypeMeta,
  *   phase: string,
- *   eventList: !backendApi.EventList
+ *   eventList: !backendApi.EventList,
+ *   resourceQuotaList: !backendApi.ResourceQuotaList,
  * }}
  */
 backendApi.NamespaceDetail;

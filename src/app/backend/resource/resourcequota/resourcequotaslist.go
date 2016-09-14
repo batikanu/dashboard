@@ -25,16 +25,16 @@ import (
 
 // ResourceQuotaList contains a list of Resource Quotas in a cluster.
 type ResourceQuotaList struct {
-	ListMeta common.ListMeta `json : "listMeta"`
-	// Unordered list of Rersource Quotas
-	Items []ResourceQuota `json : "items"`
+	ListMeta common.ListMeta `json:"listMeta"`
+	// Unordered list of Resource Quotas
+	Items []ResourceQuota `json:"items"`
 }
 
 // ResourceQuota provides the simplified presentation layer view of Kubernetes
 // Resource Quota resource.
 type ResourceQuota struct {
-	ObjectMeta common.ObjectMeta `json: "objectMeta"`
-	TypeMeta   common.TypeMeta   `json : "typeMeta"`
+	ObjectMeta common.ObjectMeta `json:"objectMeta"`
+	TypeMeta   common.TypeMeta   `json:"typeMeta"`
 }
 
 // GetResourceQuotaList returns a list of all Resource Quotas in the cluster.
@@ -44,12 +44,12 @@ func GetResourceQuotaList(client *client.Client, nsQuery *common.NamespaceQuery,
 	channels := &common.ResourceChannels{
 		ResourceQuotaList: common.GetResourceQuotaListChannel(client, nsQuery, 1),
 	}
-	return GetResourceQuotaListFromChannels(channels, nsQuery, dsQuery)
+	return GetResourceQuotaListFromChannels(channels, dsQuery)
 }
 
 // GetResourceQuotaListFromChannels returns a list of all Resource Quotas in the cluster
 // reading required resource list once from the channels.
-func GetResourceQuotaListFromChannels(channels *common.ResourceChannels, nsQuery *common.NamespaceQuery,
+func GetResourceQuotaListFromChannels(channels *common.ResourceChannels,
 	dsQuery *dataselect.DataSelectQuery) (*ResourceQuotaList, error) {
 
 	resourceQuotas := <-channels.ResourceQuotaList.List

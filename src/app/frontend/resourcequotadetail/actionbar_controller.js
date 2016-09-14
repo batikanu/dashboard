@@ -15,13 +15,22 @@
 /**
  * @final
  */
-export class PersistentVolumeDetailController {
+export class ActionBarController {
   /**
-   * @param {!backendApi.PersistentVolumeDetail} persistentVolumeDetail
+   * @param {!backendApi.ResourceQuotaDetail} resourceQuotaDetail
    * @ngInject
    */
-  constructor(persistentVolumeDetail) {
-    /** @export {!backendApi.PersistentVolumeDetail} */
-    this.persistentVolumeDetail = persistentVolumeDetail;
+  constructor(resourceQuotaDetail) {
+    /** @export {!backendApi.ResourceQuotaDetail} */
+    this.details = resourceQuotaDetail;
+
+    /** @export */
+    this.i18n = i18n;
   }
 }
+
+const i18n = {
+  /** @export {string} @desc Label 'Resource Quota' which appears at the top of the
+   delete dialog, opened from a resource quota details page. */
+  MSG_RESOURCE_QUOTA_DETAIL_RESOURCE_QUOTA_LABEL: goog.getMsg('Resource Quota'),
+};

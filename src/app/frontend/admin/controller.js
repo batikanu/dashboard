@@ -21,9 +21,12 @@ export class AdminController {
    * @param {!angular.Resource} kdNamespaceListResource
    * @param {!angular.Resource} kdNodeListResource
    * @param {!angular.Resource} kdPersistentVolumeListResource
+   * @param {!angular.Resource} kdResourceQuotaListResource
    * @ngInject
    */
-  constructor(admin, kdNamespaceListResource, kdNodeListResource, kdPersistentVolumeListResource) {
+  constructor(
+      admin, kdNamespaceListResource, kdNodeListResource, kdPersistentVolumeListResource,
+      kdResourceQuotaListResource) {
     /** @export {!backendApi.Admin} */
     this.admin = admin;
     /** @export {!angular.Resource} */
@@ -32,6 +35,8 @@ export class AdminController {
     this.kdNodeListResource = kdNodeListResource;
     /** @export {!angular.Resource} */
     this.kdPersistentVolumeListResource = kdPersistentVolumeListResource;
+    /** @export {!angular.Resource} */
+    this.kdResourceQuotaListResource = kdResourceQuotaListResource;
     /** @export */
     this.i18n = i18n;
   }
@@ -57,4 +62,6 @@ const i18n = {
   MSG_ADMIN_NODES_LABEL: goog.getMsg('Nodes'),
   /** @export {string} @desc Label that appears above the list of resources. */
   MSG_ADMIN_PERSISTENT_VOLUMES_LABEL: goog.getMsg('Persistent Volumes'),
+  /** @export {string} @desc Label that appears above the list of resources. */
+  MSG_ADMIN_RESOURCE_QUOTAS_LABEL: goog.getMsg('Resource Quotas'),
 };

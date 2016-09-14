@@ -22,16 +22,22 @@ import (
 	client "k8s.io/kubernetes/pkg/client/unversioned"
 )
 
+// ResourceStatus provides the status of the resource defined by a resource quota.
+type ResourceStatus struct {
+	Used string `json:"used,omitempty"`
+	Hard string `json:"hard,omitempty"`
+}
+
 // ResourceQuotaDetail provides the presentation layer view of Kubernetes Resource Quotas resource.
 type ResourceQuotaDetail struct {
-	ObjectMeta common.ObjectMeta `json:objectMeta`
-	TypeMeta   common.TypeMeta   `json:typeMeta`
+	ObjectMeta common.ObjectMeta `json:"objectMeta"`
+	TypeMeta   common.TypeMeta   `json:"typeMeta"`
 
-	// Spec defines the desired quota
-	Spec api.ResourceQuotaSpec `json:"spec,omitempty"`
+	// Scopes defines quota scopes
+	Scopes []api.ResourceQuotaScope `json:"scopes,omitempty"`
 
-	// Status defines the actual enforced quota and its current usage
-	Status api.ResourceQuotaStatus `json:"status,omitempty"`
+	// StatusList is a set of (resource name, Used, Hard) tuple.
+	StatusList map[api.ResourceName]ResourceStatus `json:"statusList,omitempty"`
 }
 
 // GetResourceQuotaDetail returns returns detailed information about a resource quota
@@ -48,10 +54,19 @@ func GetResourceQuotaDetail(client *client.Client, namespace, name string) (*Res
 }
 
 func getResourceQuotaDetail(rawResourceQuota *api.ResourceQuota) *ResourceQuotaDetail {
+	statusList := make(map[api.ResourceName]ResourceStatus)
+
+	for key, value := range rawResourceQuota.Status.Hard {
+		used := rawResourceQuota.Status.Used[key]
+		statusList[key] = ResourceStatus{
+			Used: used.String(),
+			Hard: value.String(),
+		}
+	}
 	return &ResourceQuotaDetail{
 		ObjectMeta: common.NewObjectMeta(rawResourceQuota.ObjectMeta),
 		TypeMeta:   common.NewTypeMeta(common.ResourceKindResourceQuota),
-		Spec:       rawResourceQuota.Spec,
-		Status:     rawResourceQuota.Status,
+		Scopes:     rawResourceQuota.Spec.Scopes,
+		StatusList: statusList,
 	}
 }

@@ -15,13 +15,20 @@
 /**
  * @final
  */
-export class PersistentVolumeDetailController {
+export class ResourceQuotaDetailController {
   /**
-   * @param {!backendApi.PersistentVolumeDetail} persistentVolumeDetail
+   * @param {!backendApi.ResourceQuotaDetail} resourceQuotaDetail
    * @ngInject
    */
-  constructor(persistentVolumeDetail) {
-    /** @export {!backendApi.PersistentVolumeDetail} */
-    this.persistentVolumeDetail = persistentVolumeDetail;
+  constructor(resourceQuotaDetail) {
+    /** @export {!backendApi.ResourceQuotaDetail} */
+    this.resourceQuotaDetail = resourceQuotaDetail;
+    /** @export */
+    this.i18n = i18n;
   }
 }
+
+const i18n = {
+  /** @export {string} @desc Resource quota info details section name. */
+  MSG_RESOURCE_QUOTA_INFO_STATUS_SECTION: goog.getMsg('Status'),
+};

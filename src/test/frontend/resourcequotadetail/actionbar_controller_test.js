@@ -12,16 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * @final
- */
-export class PersistentVolumeDetailController {
-  /**
-   * @param {!backendApi.PersistentVolumeDetail} persistentVolumeDetail
-   * @ngInject
-   */
-  constructor(persistentVolumeDetail) {
-    /** @export {!backendApi.PersistentVolumeDetail} */
-    this.persistentVolumeDetail = persistentVolumeDetail;
-  }
-}
+import {ActionBarController} from 'resourcequotadetail/actionbar_controller';
+import module from 'resourcequotadetail/resourcequotadetail_module';
+
+describe('Action Bar controller', () => {
+  /** @type {!ActionBarController} */
+  let ctrl;
+  let details = {};
+
+  beforeEach(() => {
+    angular.mock.module(module.name);
+
+    angular.mock.inject(($controller) => {
+      ctrl = $controller(ActionBarController, {resourceQuotaDetail: details});
+    });
+  });
+
+  it('should initialize details', () => {
+    expect(ctrl.details).toBe(details);
+  });
+});

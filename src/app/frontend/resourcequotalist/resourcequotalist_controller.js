@@ -13,31 +13,29 @@
 // limitations under the License.
 
 /**
+ * Controller for the resource quota list view.
+ *
  * @final
  */
-export class NamespaceDetailController {
+export class ResourceQuotaListController {
   /**
-   * @param {!backendApi.NamespaceDetail} namespaceDetail
-   * @param {!angular.Resource} kdNamespaceEventsResource
+   * @param {!backendApi.ResourceQuotaList} resourceQuotaList
    * @param {!angular.Resource} kdResourceQuotaListResource
    * @ngInject
    */
-  constructor(namespaceDetail, kdNamespaceEventsResource, kdResourceQuotaListResource) {
-    /** @export {!backendApi.NamespaceDetail} */
-    this.namespaceDetail = namespaceDetail;
-
-    /** @export {!angular.Resource} */
-    this.eventListResource = kdNamespaceEventsResource;
+  constructor(resourceQuotaList, kdResourceQuotaListResource) {
+    /** @export {!backendApi.ResourceQuotaList} */
+    this.resourceQuotaList = resourceQuotaList;
 
     /** @export {!angular.Resource} */
     this.resourceQuotaListResource = kdResourceQuotaListResource;
+  }
 
-    /** @export */
-    this.i18n = i18n;
+  /**
+   * @return {boolean}
+   * @export
+   */
+  shouldShowZeroState() {
+    return this.resourceQuotaList.items.length === 0;
   }
 }
-
-const i18n = {
-  /** @export {string} @desc header name for the resource quota list on the namespace details page.*/
-  MSG_NAMESPACE_DETAIL_RESOURCE_QUOTA_LIST_TITLE: goog.getMsg('Resource Quotas'),
-};

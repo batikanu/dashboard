@@ -13,37 +13,32 @@
 // limitations under the License.
 
 import chromeModule from 'chrome/chrome_module';
-import namespaceListModule from 'namespacelist/namespacelist_module';
-import nodeListModule from 'nodelist/nodelist_module';
-import persistentVolumeListModule from 'persistentvolumelist/persistentvolumelist_module';
-import resourceQuotaListModule from 'resourcequotalist/resourcequotalist_module';
+import componentsModule from 'common/components/components_module';
+import filtersModule from 'common/filters/filters_module';
+import eventsModule from 'events/events_module';
 
-import stateConfig from './stateconfig';
+import stateConfig from './resourcequotadetail_stateconfig';
+import {resourceQuotaDetailStatusComponent} from './resourcequotadetailstatus_component';
+import {resourceQuotaInfoComponent} from './resourcequotainfo_component';
+
 
 /**
- * Module for the admin view.
+ * Angular module for the Resource Quota details view.
+ *
+ * The view shows detailed view of a Resource Quota.
  */
 export default angular
     .module(
-        'kubernetesDashboard.admin',
+        'kubernetesDashboard.resourceQuotaDetail',
         [
           'ngMaterial',
           'ngResource',
           'ui.router',
+          componentsModule.name,
+          filtersModule.name,
+          eventsModule.name,
           chromeModule.name,
-          nodeListModule.name,
-          namespaceListModule.name,
-          persistentVolumeListModule.name,
-          resourceQuotaListModule.name,
         ])
     .config(stateConfig)
-    .factory('kdAdminResource', resource);
-
-/**
- * @param {!angular.$resource} $resource
- * @return {!angular.Resource}
- * @ngInject
- */
-function resource($resource) {
-  return $resource('api/v1/admin');
-}
+    .component('kdResourceQuotaInfo', resourceQuotaInfoComponent)
+    .component('kdResourceQuotaDetailStatus', resourceQuotaDetailStatusComponent);

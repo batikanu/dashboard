@@ -22,6 +22,7 @@ import (
 	"github.com/kubernetes/dashboard/src/app/backend/resource/namespace"
 	"github.com/kubernetes/dashboard/src/app/backend/resource/node"
 	"github.com/kubernetes/dashboard/src/app/backend/resource/persistentvolume"
+	"github.com/kubernetes/dashboard/src/app/backend/resource/resourcequota"
 	k8sClient "k8s.io/kubernetes/pkg/client/unversioned"
 )
 
@@ -32,6 +33,8 @@ type Admin struct {
 	NodeList node.NodeList `json:"nodeList"`
 
 	PersistentVolumeList persistentvolume.PersistentVolumeList `json:"persistentVolumeList"`
+
+	ResourceQuotaList resourcequota.ResourceQuotaList `json:"resourceQuotaList"`
 }
 
 // GetAdmin returns a list of all admin resources in the cluster.
@@ -42,6 +45,7 @@ func GetAdmin(client *k8sClient.Client) (*Admin, error) {
 		NamespaceList:        common.GetNamespaceListChannel(client, 1),
 		NodeList:             common.GetNodeListChannel(client, 1),
 		PersistentVolumeList: common.GetPersistentVolumeListChannel(client, 1),
+		ResourceQuotaList:    common.GetResourceQuotaListChannel(client, common.NewNamespaceQuery([]string{}), 1),
 	}
 
 	return GetAdminFromChannels(channels)
@@ -54,6 +58,7 @@ func GetAdminFromChannels(channels *common.ResourceChannels) (*Admin, error) {
 	nsChan := make(chan *namespace.NamespaceList)
 	nodeChan := make(chan *node.NodeList)
 	pvChan := make(chan *persistentvolume.PersistentVolumeList)
+	rcChan := make(chan *resourcequota.ResourceQuotaList)
 	numErrs := 3
 	errChan := make(chan error, numErrs)
 
@@ -77,6 +82,13 @@ func GetAdminFromChannels(channels *common.ResourceChannels) (*Admin, error) {
 		pvChan <- items
 	}()
 
+	go func() {
+		items, err := resourcequota.GetResourceQuotaListFromChannels(channels,
+			dataselect.DefaultDataSelect)
+		errChan <- err
+		rcChan <- items
+	}()
+
 	for i := 0; i < numErrs; i++ {
 		err := <-errChan
 		if err != nil {
@@ -88,6 +100,7 @@ func GetAdminFromChannels(channels *common.ResourceChannels) (*Admin, error) {
 		NamespaceList:        *(<-nsChan),
 		NodeList:             *(<-nodeChan),
 		PersistentVolumeList: *(<-pvChan),
+		ResourceQuotaList:    *(<-rcChan),
 	}
 
 	return admin, nil

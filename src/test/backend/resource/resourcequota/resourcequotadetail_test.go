@@ -39,7 +39,6 @@ func TestGetResourceQuotaDetail(t *testing.T) {
 						api.ResourceMemory: testMemoryQuantity,
 					},
 					Scopes: []api.ResourceQuotaScope{
-						api.ResourceQuotaScopeTerminating,
 						api.ResourceQuotaScopeBestEffort,
 					},
 				},
@@ -55,21 +54,13 @@ func TestGetResourceQuotaDetail(t *testing.T) {
 			&ResourceQuotaDetail{
 				TypeMeta:   common.TypeMeta{Kind: "resourcequota"},
 				ObjectMeta: common.ObjectMeta{Name: "foo"},
-				Spec: api.ResourceQuotaSpec{
-					Hard: map[api.ResourceName]resource.Quantity{
-						api.ResourceMemory: testMemoryQuantity,
-					},
-					Scopes: []api.ResourceQuotaScope{
-						api.ResourceQuotaScopeTerminating,
-						api.ResourceQuotaScopeBestEffort,
-					},
+				Scopes: []api.ResourceQuotaScope{
+					api.ResourceQuotaScopeBestEffort,
 				},
-				Status: api.ResourceQuotaStatus{
-					Hard: map[api.ResourceName]resource.Quantity{
-						api.ResourceMemory: testMemoryQuantity,
-					},
-					Used: map[api.ResourceName]resource.Quantity{
-						api.ResourceMemory: testMemoryQuantity,
+				StatusList: map[api.ResourceName]ResourceStatus{
+					api.ResourceMemory: {
+						Hard: testMemoryQuantity.String(),
+						Used: testMemoryQuantity.String(),
 					},
 				},
 			},
