@@ -820,4 +820,5 @@
 	<translation id="4598945348959438653" key="MSG_LIMIT_RANGE_LIST_NAMESPACE_LABEL" source="/home/urcan/wlm/dashboard/.tmp/serve/app-dev.js" desc="Limit range list header: namespace.">Namespace</translation>
 	<translation id="391138217811387226" key="MSG_LIMIT_RANGE_LIST_HEADER_AGE" source="/home/urcan/wlm/dashboard/.tmp/serve/app-dev.js" desc="Limit range list header: age.">Age</translation>
 	<translation id="7449277386438313026" key="MSG_BREADCRUMBS_LIMIT_RANGES_LABEL" source="/home/urcan/wlm/dashboard/.tmp/serve/app-dev.js" desc="Label 'Limit Ranges' that appears as a breadcrumbs on the action bar.">Limit Ranges</translation>
+	<translation id="4427523950335685235" key="MSG_NAMESPACE_DETAIL_RESOURCE_LIMITS_TITLE" source="/home/urcan/wlm/dashboard/.tmp/serve/app-dev.js" desc="header name for the resource limits on the namespace details page.">Resource Limits</translation>
 </translationbundle>

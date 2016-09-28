@@ -41,7 +41,7 @@ type NamespaceDetail struct {
 	EventList common.EventList `json:"eventList"`
 
 	// ResourceLimits is list of limit ranges associated to the namespace
-	ResourceLimits []limitrange.LimitRangeItem `json:"limitRanges"`
+	ResourceLimits []limitrange.LimitRangeItem `json:"resourceLimits"`
 }
 
 // GetNamespaceDetail gets namespace details.
@@ -72,10 +72,10 @@ func GetNamespaceDetail(client k8sClient.Interface, heapsterClient client.Heapst
 func toNamespaceDetail(namespace api.Namespace, events common.EventList, resourceLimits []limitrange.LimitRangeItem) NamespaceDetail {
 
 	return NamespaceDetail{
-		ObjectMeta: common.NewObjectMeta(namespace.ObjectMeta),
-		TypeMeta:   common.NewTypeMeta(common.ResourceKindNamespace),
-		Phase:      namespace.Status.Phase,
-		EventList:  events,
+		ObjectMeta:     common.NewObjectMeta(namespace.ObjectMeta),
+		TypeMeta:       common.NewTypeMeta(common.ResourceKindNamespace),
+		Phase:          namespace.Status.Phase,
+		EventList:      events,
 		ResourceLimits: resourceLimits,
 	}
 }
@@ -87,7 +87,7 @@ func getLimitRanges(client k8sClient.LimitRangesNamespacer, namespace api.Namesp
 		return nil, err
 	}
 
-	resourceLimits := make([]limitrange.LimitRangeItem,0)
+	resourceLimits := make([]limitrange.LimitRangeItem, 0)
 	for _, item := range list.Items {
 		list := limitrange.ToLimitRanges(&item)
 		resourceLimits = append(resourceLimits, list...)

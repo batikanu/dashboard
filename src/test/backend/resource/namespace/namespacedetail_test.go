@@ -25,7 +25,7 @@ import (
 func TestGetNamespaceDetail(t *testing.T) {
 	cases := []struct {
 		namespace api.Namespace
-		expected   *NamespaceDetail
+		expected  *NamespaceDetail
 	}{
 		{
 			api.Namespace{
@@ -37,13 +37,12 @@ func TestGetNamespaceDetail(t *testing.T) {
 			&NamespaceDetail{
 				TypeMeta:   common.TypeMeta{Kind: "namespace"},
 				ObjectMeta: common.ObjectMeta{Name: "foo"},
-				Phase: api.NamespaceActive,
-
+				Phase:      api.NamespaceActive,
 			},
 		},
 	}
 	for _, c := range cases {
-		actual := toNamespaceDetail(c.namespace, common.EventList{},nil)
+		actual := toNamespaceDetail(c.namespace, common.EventList{}, nil)
 		if !reflect.DeepEqual(&actual, c.expected) {
 			t.Errorf("toNamespaceDetail(%#v) == \n%#v\nexpected \n%#v\n",
 				c.namespace, actual, c.expected)

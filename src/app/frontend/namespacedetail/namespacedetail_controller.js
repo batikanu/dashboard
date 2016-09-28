@@ -27,5 +27,13 @@ export class NamespaceDetailController {
 
     /** @export {!angular.Resource} */
     this.eventListResource = kdNamespaceEventsResource;
+
+    /** @export */
+    this.i18n = i18n;
   }
 }
+
+const i18n = {
+  /** @export {string} @desc header name for the resource limits on the namespace details page.*/
+  MSG_NAMESPACE_DETAIL_RESOURCE_LIMITS_TITLE: goog.getMsg('Resource Limits'),
+};

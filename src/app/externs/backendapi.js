@@ -911,7 +911,8 @@ backendApi.NamespaceList;
  *   objectMeta: !backendApi.ObjectMeta,
  *   typeMeta: !backendApi.TypeMeta,
  *   phase: string,
- *   eventList: !backendApi.EventList
+ *   eventList: !backendApi.EventList,
+ *   resourceLimits: Array<!backendApi.LimitRange>
  * }}
  */
 backendApi.NamespaceDetail;

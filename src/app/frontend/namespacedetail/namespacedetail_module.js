@@ -20,7 +20,6 @@ import eventsModule from 'events/events_module';
 import stateConfig from './namespacedetail_stateconfig';
 import {namespaceInfoComponent} from './namespaceinfo_component';
 
-
 /**
  * Angular module for the Namespace details view.
  *

@@ -26,7 +26,7 @@ import (
 func TestGetNamespaceList(t *testing.T) {
 	cases := []struct {
 		namespaces []api.Namespace
-		expected    *NamespaceList
+		expected   *NamespaceList
 	}{
 		{nil, &NamespaceList{Namespaces: []Namespace{}}},
 		{

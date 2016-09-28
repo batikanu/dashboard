@@ -22,7 +22,7 @@ export default class ResourceLimitsController {
   constructor() {
     /**
      * Resource Limits. Initialized from the scope.
-     * @export {!Object<string, Object<string, !backendApi.LimitRange>>}
+     * @export {Array<!backendApi.LimitRange>}
      */
     this.resourceLimits;
 
@@ -40,7 +40,7 @@ export const resourceLimitsComponent = {
   controller: ResourceLimitsController,
   templateUrl: 'limitrangedetail/resourcelimits.html',
   bindings: {
-    /** {!Array<!backendApi.LimitRange>} */
+    /** {Array<!backendApi.LimitRange>} */
     'resourceLimits': '=',
   },
 };
